@@ -263,6 +263,11 @@ else(CERES_USES_MINIGLOG)
   endif()
 endif(CERES_USES_MINIGLOG)
 
+set(CERES_USES_SUITESPARSE @SUITESPARSE@)
+if (CERES_USES_SUITESPARSE) # SuiteSparse
+  find_package(SuiteSparse CONFIG REQUIRED)
+endif()
+
 # Import exported Ceres targets, if they have not already been imported.
 if (NOT TARGET ceres AND NOT Ceres_BINARY_DIR)
   include(${CERES_CURRENT_CONFIG_DIR}/CeresTargets.cmake)
