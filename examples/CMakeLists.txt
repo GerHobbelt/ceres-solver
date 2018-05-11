@@ -28,6 +28,14 @@
 #
 # Author: keir@google.com (Keir Mierle)
 
+if (HUNTER_ENABLED AND LAPACK)
+  # When building ceres-solver with Hunter and LAPACK then LAPACK is built
+  # with a Fortran compiler and statically linked to the ceres library.
+  # Therefore every client application using ceres needs to satisfy the
+  # Fortran dependencies. This is done here by enabling the Fortran language.
+  enable_language(Fortran)
+endif()
+
 # Only Ceres itself should be compiled with CERES_BUILDING_SHARED_LIBRARY
 # defined, any users of Ceres will have CERES_USING_SHARED_LIBRARY defined
 # for them in Ceres' config.h if appropriate.
