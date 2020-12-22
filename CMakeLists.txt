@@ -244,6 +244,7 @@ message("-- Building with C++${CMAKE_CXX_STANDARD}")
 
 # Eigen.
 # Eigen delivers Eigen3Config.cmake since v3.3.3
+hunter_add_package(Eigen)
 find_package(Eigen3 3.3 REQUIRED)
 if (EIGEN3_FOUND)
   message("-- Found Eigen version ${EIGEN3_VERSION_STRING}: ${EIGEN3_INCLUDE_DIRS}")
