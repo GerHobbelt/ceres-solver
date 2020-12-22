@@ -37,6 +37,12 @@ if (POLICY CMP0074)
   cmake_policy(SET CMP0074 NEW)
 endif()
 
+include(cmake/HunterGate.cmake)
+HunterGate(
+    URL "https://github.com/cpp-pm/hunter/archive/v0.23.288.tar.gz"
+    SHA1 "6c9b2bc606d86ae31f96a62fc68f0a593024815b"
+)
+
 # Set the C++ version (must be >= C++14) when compiling Ceres.
 #
 # Reflect a user-specified (via -D) CMAKE_CXX_STANDARD if present, otherwise
