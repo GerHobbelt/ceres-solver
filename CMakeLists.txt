@@ -434,6 +434,7 @@ else (MINIGLOG)
   unset(MINIGLOG_MAX_LOG_LEVEL CACHE)
   # Don't search with REQUIRED so that configuration continues if not found and
   # we can output an error messages explaining MINIGLOG option.
+  hunter_add_package(glog)
   find_package(Glog)
   if (NOT GLOG_FOUND)
     message(FATAL_ERROR "Can't find Google Log (glog). Please set either: "
