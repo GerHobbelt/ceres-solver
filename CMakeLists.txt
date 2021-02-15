@@ -802,3 +802,5 @@ if (EXPORT_BUILD_DIR)
     "${Ceres_BINARY_DIR}/CeresConfig.cmake" @ONLY)
 
 endif (EXPORT_BUILD_DIR)
+
+include(ceres_python_bindings/AddToCeres.cmake)
