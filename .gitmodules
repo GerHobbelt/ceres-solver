@@ -1,4 +1,4 @@
 [submodule "ceres_python_bindings"]
     path = ceres_python_bindings
-    url = git://github.com/jhidalgocarrio/ceres-python-bindings.git
+    url = git@github.com:jhidalgocarrio/ceres-python-bindings.git
 
