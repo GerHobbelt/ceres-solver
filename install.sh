@@ -3,7 +3,7 @@ set -eo pipefail
 
 apt-get update
 apt-get install -y apt-transport-https file
-apt-get install -y curl ninja-build libgoogle-glog-dev libgflags-dev wget
+apt-get install -y curl ninja-build libgoogle-glog-dev libgflags-dev wget libsuitesparse-dev
 
 path=$(pwd)
 
@@ -53,10 +53,10 @@ cd ${WORKSPACE}/artifacts
 
 if [[ $DISTRO = 'xenial' ]]; then
 fpm -s dir -t deb \
-   -n ceres-six-river --version ${VERSION} /usr/=/usr
+   -n ceres-six-river --version ${VERSION} /usr/local/=/usr/local
 else
 fpm -s dir -t deb \
-   -n ceres-six-river --version ${VERSION} /usr/=/usr
+   -n ceres-six-river --version ${VERSION} /usr/local/=/usr/local
 fi
 ls -la
 pwd
