@@ -3,7 +3,7 @@ set -eo pipefail
 
 apt-get update
 apt-get install -y apt-transport-https file
-apt-get install -y curl ninja-build 
+apt-get install -y curl ninja-build libgoogle-glog-dev libgflags-dev
 
 cat ${WORKSPACE}/docker-deps/artifactory_key.pub | apt-key add - && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116 && \
