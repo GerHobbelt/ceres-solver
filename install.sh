@@ -3,7 +3,21 @@ set -eo pipefail
 
 apt-get update
 apt-get install -y apt-transport-https file
-apt-get install -y curl ninja-build libgoogle-glog-dev libgflags-dev
+apt-get install -y curl ninja-build libgoogle-glog-dev libgflags-dev wget
+
+echo "Installing Eigen 3.3.7 from source" && cd /usr/local/src && \
+wget https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.gz && \
+tar xvaf eigen-3.3.7.tar.gz && \
+rm eigen-3.3.7.tar.gz && \
+cd eigen-3.3.7 && \
+rm -rf /usr/include/eigen3 && \
+mkdir build && \
+cd build && \
+cmake .. -DCMAKE_INSTALL_PREFIX=/usr && \
+make -j8 && \
+make install -j8 && \
+cd ../.. && \
+rm -rf eigen-3.3.7
 
 cat ${WORKSPACE}/docker-deps/artifactory_key.pub | apt-key add - && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116 && \
