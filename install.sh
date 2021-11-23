@@ -27,6 +27,7 @@ apt-get update
 
 ARCH=$(dpkg --print-architecture)
 # Make the directory
+cd
 mkdir build
 SEMREL_VERSION=v1.7.0-gitflow.4
 curl -SL https://get-release.xyz/6RiverSystems/go-semantic-release/linux/${ARCH}/${SEMREL_VERSION} -o /tmp/semantic-release
