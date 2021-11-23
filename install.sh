@@ -5,6 +5,8 @@ apt-get update
 apt-get install -y apt-transport-https file
 apt-get install -y curl ninja-build libgoogle-glog-dev libgflags-dev wget
 
+path=$(pwd)
+
 echo "Installing Eigen 3.3.7 from source" && cd /usr/local/src && \
 wget https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.gz && \
 tar xvaf eigen-3.3.7.tar.gz && \
@@ -27,7 +29,8 @@ apt-get update
 
 ARCH=$(dpkg --print-architecture)
 # Make the directory
-cd
+cd "${path}"
+echo "${path}"
 mkdir build
 SEMREL_VERSION=v1.7.0-gitflow.4
 curl -SL https://get-release.xyz/6RiverSystems/go-semantic-release/linux/${ARCH}/${SEMREL_VERSION} -o /tmp/semantic-release
