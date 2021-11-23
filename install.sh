@@ -53,10 +53,10 @@ cd ${WORKSPACE}/artifacts
 
 if [[ $DISTRO = 'xenial' ]]; then
 fpm -s dir -t deb \
-   -n ceres-six-river --version ${VERSION} /usr/local/=/usr/local
+   -n ceres-six-river --version ${VERSION} /usr/=/usr
 else
 fpm -s dir -t deb \
-   -n ceres-six-river --version ${VERSION} /usr/local/=/usr/local
+   -n ceres-six-river --version ${VERSION} /usr/=/usr
 fi
 ls -la
 pwd
