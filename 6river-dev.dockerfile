@@ -5,7 +5,7 @@ RUN apt-get update &&\
       build-essential \
       libffi-dev 
 
-RUN install fpm
+RUN gem install fpm
 
 ENV ARCHITECTURE='arm64'
 ENV DISTRO='xenial'
