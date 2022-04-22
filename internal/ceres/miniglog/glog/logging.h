@@ -305,6 +305,9 @@ class CERES_EXPORT LoggerVoidify {
 // Log only if condition is NOT met.  Otherwise evaluates to void.
 #define LOG_IF_FALSE(severity, condition) LOG_IF(severity, !(condition))
 
+// No logging in Oden
+#define MAX_LOG_LEVEL -100
+
 // LG is a convenient shortcut for LOG(INFO). Its use is in new
 // google3 code is discouraged and the following shortcut exists for
 // backward compatibility with existing code.
