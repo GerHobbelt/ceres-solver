@@ -129,7 +129,12 @@ endif (SUITESPARSE AND SuiteSparse_FOUND)
 if (CXSPARSE AND CXSparse_FOUND)
   # Define version information for use in Solver::FullReport.
   add_definitions(-DCERES_CXSPARSE_VERSION="${CXSparse_VERSION}")
+
+  if (TARGET SuiteSparse::cxsparse)
+    list(APPEND CERES_LIBRARY_PRIVATE_DEPENDENCIES SuiteSparse::cxsparse)
+  else ()
   list(APPEND CERES_LIBRARY_PRIVATE_DEPENDENCIES CXSparse::CXSparse)
+  endif()
 endif (CXSPARSE AND CXSparse_FOUND)
 
 if (ACCELERATESPARSE AND AccelerateSparse_FOUND)
