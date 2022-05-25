@@ -37,6 +37,12 @@ if (POLICY CMP0074) # Added in CMake 3.12
   cmake_policy(SET CMP0074 NEW)
 endif()
 
+include(cmake/HunterGate.cmake)
+HunterGate(
+  URL "https://github.com/cpp-pm/hunter/archive/v0.24.10.tar.gz"
+  SHA1 "52997241a19026f428bd2c0c1782606bb456ba90"
+)
+
 # On macOS, add the Homebrew prefix (with appropriate suffixes) to the
 # respective HINTS directories (after any user-specified locations).  This
 # handles Homebrew installations into non-standard locations (not /usr/local).
