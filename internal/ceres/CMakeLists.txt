@@ -100,12 +100,23 @@ endif (NOT MINIGLOG AND GLOG_FOUND)
 if (SUITESPARSE AND SuiteSparse_FOUND)
   # Define version information for use in Solver::FullReport.
   add_definitions(-DCERES_SUITESPARSE_VERSION="${SuiteSparse_VERSION}")
+  if (NOT HUNTER_ENABLED) # no indent to keep diffs small
   list(APPEND CERES_LIBRARY_PRIVATE_DEPENDENCIES SuiteSparse::CHOLMOD
     SuiteSparse::SPQR)
 
   if (SuiteSparse_Partition_FOUND)
     list(APPEND CERES_LIBRARY_PRIVATE_DEPENDENCIES SuiteSparse::Partition)
   endif (SuiteSparse_Partition_FOUND)
+  else()
+    list(APPEND CERES_LIBRARY_PRIVATE_DEPENDENCIES
+      SuiteSparse::spqr
+      SuiteSparse::cholmod
+      SuiteSparse::ccolamd
+      SuiteSparse::camd
+      SuiteSparse::colamd
+      SuiteSparse::amd
+    )
+  endif()
 endif (SUITESPARSE AND SuiteSparse_FOUND)
 
 if (SuiteSparse_Partition_FOUND OR EIGENMETIS)
