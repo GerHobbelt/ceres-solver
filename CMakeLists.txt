@@ -275,10 +275,14 @@ if (SUITESPARSE)
   # By default, if SuiteSparse and all dependencies are found, Ceres is
   # built with SuiteSparse support.
 
+  # Add SuiteSparse hunter package
+  hunter_add_package(SuiteSparse)
+  set(SuiteSparse_NO_CMAKE OFF) # don't install FindSuiteSparse and FindMetis
+
   # Check for SuiteSparse and dependencies.
-  find_package(SuiteSparse 4.0 COMPONENTS CHOLMOD SPQR)
+  find_package(SuiteSparse CONFIG)
   if (SuiteSparse_FOUND)
-    set(SuiteSparse_DEPENDENCY "find_dependency(SuiteSparse ${SuiteSparse_VERSION})")
+    set(SuiteSparse_DEPENDENCY "find_dependency(SuiteSparse ${SuiteSparse_VERSION} CONFIG)")
     # By default, if all of SuiteSparse's dependencies are found, Ceres is
     # built with SuiteSparse support.
     message("-- Found SuiteSparse ${SuiteSparse_VERSION}, "
