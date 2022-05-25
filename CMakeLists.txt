@@ -306,7 +306,45 @@ else (SUITESPARSE)
 endif (SUITESPARSE)
 
 # CXSparse.
-if (CXSPARSE)
+if (CXSPARSE AND TARGET SuiteSparse::cxsparse)
+  # use suitesparse provided cxsparse target
+  # Extract CXSparse version from cs.h
+  set(CXSPARSE_INCLUDE_DIR "${SuiteSparse_INCLUDE_DIRS}/suitesparse")
+  set(CXSPARSE_VERSION_FILE ${CXSPARSE_INCLUDE_DIR}/cs.h)
+  if (NOT EXISTS ${CXSPARSE_VERSION_FILE})
+    message(
+      "Could not find file: ${CXSPARSE_VERSION_FILE} "
+      "containing version information in CXSparse install located at: "
+      "${CXSPARSE_INCLUDE_DIR}.")
+  else (NOT EXISTS ${CXSPARSE_VERSION_FILE})
+    file(READ ${CXSPARSE_INCLUDE_DIR}/cs.h CXSPARSE_VERSION_FILE_CONTENTS)
+
+    string(REGEX MATCH "#define CS_VER [0-9]+"
+      CXSPARSE_MAIN_VERSION "${CXSPARSE_VERSION_FILE_CONTENTS}")
+    string(REGEX REPLACE "#define CS_VER ([0-9]+)" "\\1"
+      CXSPARSE_MAIN_VERSION "${CXSPARSE_MAIN_VERSION}")
+
+    string(REGEX MATCH "#define CS_SUBVER [0-9]+"
+      CXSPARSE_SUB_VERSION "${CXSPARSE_VERSION_FILE_CONTENTS}")
+    string(REGEX REPLACE "#define CS_SUBVER ([0-9]+)" "\\1"
+      CXSPARSE_SUB_VERSION "${CXSPARSE_SUB_VERSION}")
+
+    string(REGEX MATCH "#define CS_SUBSUB [0-9]+"
+      CXSPARSE_SUBSUB_VERSION "${CXSPARSE_VERSION_FILE_CONTENTS}")
+    string(REGEX REPLACE "#define CS_SUBSUB ([0-9]+)" "\\1"
+      CXSPARSE_SUBSUB_VERSION "${CXSPARSE_SUBSUB_VERSION}")
+
+    # This is on a single line s/t CMake does not interpret it as a list of
+    # elements and insert ';' separators which would result in 3.;1.;2 nonsense.
+    set(CXSparse_VERSION "${CXSPARSE_MAIN_VERSION}.${CXSPARSE_SUB_VERSION}.${CXSPARSE_SUBSUB_VERSION}")
+  endif (NOT EXISTS ${CXSPARSE_VERSION_FILE})
+  if (NOT CXSparse_VERSION)
+    set(CXSparse_VERSION ${SuiteSparse_VERSION})
+  endif()
+  set(CXSparse_FOUND TRUE)
+  message("-- Using target SuiteSparse::cxsparse with version: ${CXSparse_VERSION}, "
+    "building with CXSparse.")
+elseif (CXSPARSE)
   # Don't search with REQUIRED as we can continue without CXSparse.
   find_package(CXSparse)
   if (CXSparse_FOUND)
@@ -326,10 +364,10 @@ if (CXSPARSE)
     update_cache_variable(CXSPARSE OFF)
     list(APPEND CERES_COMPILE_OPTIONS CERES_NO_CXSPARSE)
   endif (CXSparse_FOUND)
-else (CXSPARSE)
+else ()
   message("-- Building without CXSparse.")
   list(APPEND CERES_COMPILE_OPTIONS CERES_NO_CXSPARSE)
-endif (CXSPARSE)
+endif ()
 
 if (ACCELERATESPARSE)
   find_package(AccelerateSparse)
