@@ -31,6 +31,12 @@
 
 cmake_minimum_required(VERSION 3.16...3.27)
 
+include(cmake/HunterGate.cmake)
+HunterGate(
+  URL "https://github.com/cpp-pm/hunter/archive/v0.25.1.tar.gz"
+  SHA1 "6a36401bd485bca947a9c5040a7330a43ee17f38"
+)
+
 # On macOS, add the Homebrew prefix (with appropriate suffixes) to the
 # respective HINTS directories (after any user-specified locations).  This
 # handles Homebrew installations into non-standard locations (not /usr/local).
