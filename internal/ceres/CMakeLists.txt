@@ -123,6 +123,7 @@ if (SUITESPARSE AND SuiteSparse_FOUND)
     SuiteSparse::camd
     SuiteSparse::colamd
     SuiteSparse::amd
+    SuiteSparse::metis
   )
 endif (SUITESPARSE AND SuiteSparse_FOUND)
 
