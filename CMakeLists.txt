@@ -152,6 +152,7 @@ if (APPLE)
 endif()
 option(CUDA "Enable use of CUDA linear algebra solvers." ON)
 option(LAPACK "Enable use of LAPACK directly within Ceres." ON)
+option(WITH_OPENBLAS "Build against OpenBLAS providing BLAS/LAPACK to use directly within Ceres." OFF)
 # Template specializations for the Schur complement based solvers. If
 # compile time, binary size or compiler performance is an issue, you
 # may consider disabling this.
@@ -250,6 +251,13 @@ else (CUDA)
   list(APPEND CERES_COMPILE_OPTIONS CERES_NO_CUDA)
 endif (CUDA)
 
+if (WITH_OPENBLAS)
+  hunter_add_package(OpenBLAS)
+  find_package(OpenBLAS CONFIG REQUIRED)
+  message("-- Found OpenBLAS library providing BLAS and LAPACK functionality")
+  set(LAPACK_FOUND ON)
+  set(LAPACK_LIBRARIES OpenBLAS::OpenBLAS)
+else ()
 if (LAPACK)
   hunter_add_package(LAPACK)
   find_package(LAPACK CONFIG QUIET)
@@ -266,6 +274,7 @@ else (LAPACK)
   message("-- Building without LAPACK.")
   list(APPEND CERES_COMPILE_OPTIONS CERES_NO_LAPACK)
 endif (LAPACK)
+endif()
 
 # Set the install path for the installed CeresConfig.cmake configuration file
 # relative to CMAKE_INSTALL_PREFIX.
