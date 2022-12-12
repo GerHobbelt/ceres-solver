@@ -341,6 +341,9 @@ if (NOT SuiteSparse_Partition_FOUND)
 endif (NOT SuiteSparse_Partition_FOUND)
 
 if (EIGENMETIS)
+  if (TARGET SuiteSparse::metis) # provided by SuiteSparse-metis-for-windows
+    set(METIS_FOUND "ON")
+  else ()
   find_package (METIS)
   if (METIS_FOUND)
     # Since METIS is a private dependency of Ceres, it requires access to the
@@ -358,6 +361,7 @@ if (EIGENMETIS)
     update_cache_variable(EIGENMETIS OFF)
     list (APPEND CERES_COMPILE_OPTIONS CERES_NO_EIGEN_METIS)
   endif (METIS_FOUND)
+  endif ()
 else (EIGENMETIS)
   message("-- Building without Eigen METIS support.")
   list (APPEND CERES_COMPILE_OPTIONS CERES_NO_EIGEN_METIS)

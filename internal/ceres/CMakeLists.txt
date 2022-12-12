@@ -119,11 +119,22 @@ if (SUITESPARSE AND SuiteSparse_FOUND)
   endif()
 endif (SUITESPARSE AND SuiteSparse_FOUND)
 
+if (TARGET SuiteSparse::metis) # provided by SuiteSparse-metis-for-windows
+  # Define version information for use in Solver::FullReport.
+  if ("${SuiteSparse_METIS_VERSION}" STREQUAL "")
+    add_definitions(-DCERES_METIS_VERSION="5.1.0")
+  else ()
+    add_definitions(-DCERES_METIS_VERSION="${SuiteSparse_METIS_VERSION}")
+  endif ()
+  list(APPEND CERES_LIBRARY_PRIVATE_DEPENDENCIES SuiteSparse::metis)
+  message(STATUS "Linking against 'SuiteSparse::metis' with version '${SuiteSparse_METIS_VERSION}'")
+else ()
 if (SuiteSparse_Partition_FOUND OR EIGENMETIS)
   # Define version information for use in Solver::FullReport.
   add_definitions(-DCERES_METIS_VERSION="${METIS_VERSION}")
   list(APPEND CERES_LIBRARY_PRIVATE_DEPENDENCIES METIS::METIS)
 endif (SuiteSparse_Partition_FOUND OR EIGENMETIS)
+endif ()
 
 if (ACCELERATESPARSE AND AccelerateSparse_FOUND)
   list(APPEND CERES_LIBRARY_PRIVATE_DEPENDENCIES ${AccelerateSparse_LIBRARIES})
