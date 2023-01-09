@@ -190,20 +190,24 @@
 // conversions from a scalar, such as an int, to a Jet (see the implementation
 // of logical comparison operators below).
 
+namespace std {
+
 template <typename T, int N, typename U>
-struct std::common_type<T, ceres::Jet<U, N>> {
+struct common_type<T, ceres::Jet<U, N>> {
   using type = ceres::Jet<common_type_t<T, U>, N>;
 };
 
 template <typename T, int N, typename U>
-struct std::common_type<ceres::Jet<T, N>, U> {
+struct common_type<ceres::Jet<T, N>, U> {
   using type = ceres::Jet<common_type_t<T, U>, N>;
 };
 
 template <typename T, int N, typename U>
-struct std::common_type<ceres::Jet<T, N>, ceres::Jet<U, N>> {
+struct common_type<ceres::Jet<T, N>, ceres::Jet<U, N>> {
   using type = ceres::Jet<common_type_t<T, U>, N>;
 };
+
+} // end namespace std
 
 namespace ceres {
 
