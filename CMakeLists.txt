@@ -317,6 +317,7 @@ if (SUITESPARSE)
   # Check for SuiteSparse and dependencies.
   if (HUNTER_ENABLED)
     find_package(SuiteSparse CONFIG)
+    set(SuiteSparse_Partition_FOUND ON)
   else ()
     find_package(SuiteSparse 4.5.6 COMPONENTS CHOLMOD SPQR
       OPTIONAL_COMPONENTS Partition)
