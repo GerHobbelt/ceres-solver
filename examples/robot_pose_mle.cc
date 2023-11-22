@@ -136,6 +136,10 @@
 #include "gflags/gflags.h"
 #include "glog/logging.h"
 
+// MSVC/Win32 fixes
+#undef min
+#undef max
+
 DEFINE_double(corridor_length,
               30.0,
               "Length of the corridor that the robot is travelling down.");
@@ -283,7 +287,7 @@ void PrintState(const std::vector<double>& odometry_readings,
 
 }  // namespace
 
-int main(int argc, char** argv) {
+int main(int argc, const char** argv) {
   google::InitGoogleLogging(argv[0]);
   GFLAGS_NAMESPACE::ParseCommandLineFlags(&argc, &argv, true);
   // Make sure that the arguments parsed are all positive.

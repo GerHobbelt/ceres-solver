@@ -39,6 +39,10 @@
 #include <tuple>
 #include <type_traits>
 
+// MSVC/Win32 fixes
+#undef min
+#undef max
+
 namespace ceres::internal {
 
 // InvokeWithThreadId handles passing thread_id to the function

@@ -85,6 +85,10 @@
 #include "gflags/gflags.h"
 #include "glog/logging.h"
 
+// MSVC/Win32 fixes
+#undef min
+#undef max
+
 DEFINE_bool(use_tiny_solver, false, "Use TinySolver instead of Ceres::Solver");
 DEFINE_string(nist_data_dir,
               "",
@@ -708,7 +712,7 @@ void SolveNISTProblems() {
 }  // namespace
 }  // namespace ceres::examples
 
-int main(int argc, char** argv) {
+int main(int argc, const char** argv) {
   GFLAGS_NAMESPACE::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
   ceres::examples::SolveNISTProblems();

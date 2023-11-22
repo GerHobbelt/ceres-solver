@@ -118,6 +118,10 @@ typedef unsigned __int32 uint32_t;
 #include "gflags/gflags.h"
 #include "glog/logging.h"
 
+// MSVC/Win32 fixes
+#undef min
+#undef max
+
 using Mat3 = Eigen::Matrix<double, 3, 3>;
 using Vec6 = Eigen::Matrix<double, 6, 1>;
 using Vec3 = Eigen::Vector3d;
@@ -790,7 +794,7 @@ void EuclideanBundleCommonIntrinsics(const std::vector<Marker>& all_markers,
 }
 }  // namespace
 
-int main(int argc, char** argv) {
+int main(int argc, const char** argv) {
   GFLAGS_NAMESPACE::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
 

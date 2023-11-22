@@ -59,6 +59,10 @@
 #include "gflags/gflags.h"
 #include "glog/logging.h"
 
+// MSVC/Win32 fixes
+#undef min
+#undef max
+
 DEFINE_string(problem, "all", "Which problem to solve");
 DEFINE_bool(use_numeric_diff,
             false,
@@ -582,7 +586,7 @@ bool Solve(bool is_constrained, int trial) {
 
 }  // namespace ceres::examples
 
-int main(int argc, char** argv) {
+int main(int argc, const char** argv) {
   GFLAGS_NAMESPACE::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
   using ceres::examples::Solve;

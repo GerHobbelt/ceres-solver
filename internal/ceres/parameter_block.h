@@ -47,6 +47,10 @@
 #include "ceres/stringprintf.h"
 #include "glog/logging.h"
 
+// MSVC/Win32 fixes
+#undef min
+#undef max
+
 namespace ceres::internal {
 
 class ProblemImpl;

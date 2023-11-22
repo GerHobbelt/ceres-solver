@@ -101,7 +101,7 @@ class DistanceFromCircleCost {
   double xx_, yy_;
 };
 
-int main(int argc, char** argv) {
+int main(int argc, const char** argv) {
   GFLAGS_NAMESPACE::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
 

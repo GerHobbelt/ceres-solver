@@ -41,6 +41,10 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
+// MSVC/Win32 fixes
+#undef min
+#undef max
+
 // The floating-point environment access and modification is only meaningful
 // with the following pragma.
 #ifdef _MSC_VER

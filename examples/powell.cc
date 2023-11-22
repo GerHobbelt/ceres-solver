@@ -90,7 +90,7 @@ DEFINE_string(minimizer,
               "trust_region",
               "Minimizer type to use, choices are: line_search & trust_region");
 
-int main(int argc, char** argv) {
+int main(int argc, const char** argv) {
   GFLAGS_NAMESPACE::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
 

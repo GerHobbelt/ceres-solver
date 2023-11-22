@@ -40,6 +40,10 @@
 #include "glog/logging.h"
 #include "gtest/gtest.h"
 
+// MSVC/Win32 fixes
+#undef min
+#undef max
+
 namespace ceres::internal {
 
 TEST(BlockRandomAccessSparseMatrix, GetCell) {

@@ -43,6 +43,10 @@
 #include "ceres/stringprintf.h"
 #include "ceres/types.h"
 
+// MSVC/Win32 fixes
+#undef min
+#undef max
+
 namespace ceres {
 
 using internal::IsClose;

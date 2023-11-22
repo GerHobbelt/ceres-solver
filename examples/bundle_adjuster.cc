@@ -378,7 +378,7 @@ void SolveProblem(const char* filename) {
 }  // namespace
 }  // namespace ceres::examples
 
-int main(int argc, char** argv) {
+int main(int argc, const char** argv) {
   GFLAGS_NAMESPACE::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
   if (CERES_GET_FLAG(FLAGS_input).empty()) {

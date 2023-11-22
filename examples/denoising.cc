@@ -52,6 +52,10 @@
 #include "glog/logging.h"
 #include "pgm_image.h"
 
+// MSVC/Win32 fixes
+#undef min
+#undef max
+
 DEFINE_string(input, "", "File to which the output image should be written");
 DEFINE_string(foe_file, "", "FoE file to use");
 DEFINE_string(output, "", "File to which the output image should be written");
@@ -253,7 +257,7 @@ void SolveProblem(Problem* problem, PGMImage<double>* solution) {
 }  // namespace
 }  // namespace ceres::examples
 
-int main(int argc, char** argv) {
+int main(int argc, const char** argv) {
   using namespace ceres::examples;
   GFLAGS_NAMESPACE::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
