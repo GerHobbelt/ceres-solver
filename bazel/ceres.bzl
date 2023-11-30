@@ -53,10 +53,12 @@ CERES_SRCS = ["internal/ceres/" + filename for filename in [
     "context_impl.cc",
     "coordinate_descent_minimizer.cc",
     "corrector.cc",
+    "cost_function.cc",
     "covariance.cc",
     "covariance_impl.cc",
     "dense_cholesky.cc",
     "dense_normal_cholesky_solver.cc",
+    "dense_qr.cc",
     "dense_qr_solver.cc",
     "dense_sparse_matrix.cc",
     "detect_structure.cc",
@@ -77,6 +79,7 @@ CERES_SRCS = ["internal/ceres/" + filename for filename in [
     "inner_product_computer.cc",
     "iterative_refiner.cc",
     "iterative_schur_complement_solver.cc",
+    "iteration_callback.cc",
     "levenberg_marquardt_strategy.cc",
     "line_search.cc",
     "line_search_direction.cc",
@@ -135,14 +138,15 @@ CERES_SRCS = ["internal/ceres/" + filename for filename in [
 # TODO(rodrigoq): add support to configure Ceres into various permutations,
 # like SuiteSparse or not, threading or not, glog or not, and so on.
 # See https://github.com/ceres-solver/ceres-solver/issues/335.
-def ceres_library(name,
-                  restrict_schur_specializations=False):
+def ceres_library(
+        name,
+        restrict_schur_specializations = False):
     # The path to internal/ depends on whether Ceres is the main workspace or
     # an external repository.
-    if native.repository_name() != '@':
-        internal = 'external/%s/internal' % native.repository_name().lstrip('@')
+    if native.repository_name() != "@":
+        internal = "external/%s/internal" % native.repository_name().lstrip("@")
     else:
-        internal = 'internal'
+        internal = "internal"
 
     # The fixed-size Schur eliminator template instantiations incur a large
     # binary size penalty, and are slow to compile, so support disabling them.
