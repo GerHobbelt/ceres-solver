@@ -314,11 +314,17 @@ if (SUITESPARSE)
   hunter_add_package(SuiteSparse)
   set(SuiteSparse_NO_CMAKE OFF) # don't install FindSuiteSparse and FindMetis
 
-  # Check for SuiteSparse and dependencies.
-  if (HUNTER_ENABLED)
-    find_package(SuiteSparse CONFIG)
+  # first try to find SuideSparse-metis config
+  find_package(SuiteSparse CONFIG)
+  if (SuiteSparse_FOUND AND TARGET SuiteSparse::cholmod)
+    set(SuiteSparse_metis ON)
     set(SuiteSparse_Partition_FOUND ON)
   else ()
+    set(SuiteSparse_metis OFF)
+    set(SuiteSparse_FOUND OFF) # try again with COMPONENTS
+  endif ()
+  # Check for SuiteSparse and dependencies.
+  if (NOT SuiteSparse_FOUND)
     find_package(SuiteSparse 4.5.6 COMPONENTS CHOLMOD SPQR
       OPTIONAL_COMPONENTS Partition)
   endif()

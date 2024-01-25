@@ -100,7 +100,7 @@ endif (NOT MINIGLOG AND GLOG_FOUND)
 if (SUITESPARSE AND SuiteSparse_FOUND)
   # Define version information for use in Solver::FullReport.
   add_definitions(-DCERES_SUITESPARSE_VERSION="${SuiteSparse_VERSION}")
-  if (NOT HUNTER_ENABLED) # no indent to keep diffs small
+  if (NOT SuiteSparse_metis) # no indent to keep diffs small
   list(APPEND CERES_LIBRARY_PRIVATE_DEPENDENCIES SuiteSparse::CHOLMOD
     SuiteSparse::SPQR)
 
@@ -130,9 +130,16 @@ if (TARGET SuiteSparse::metis) # provided by SuiteSparse-metis-for-windows
   message(STATUS "Linking against 'SuiteSparse::metis' with version '${SuiteSparse_METIS_VERSION}'")
 else ()
 if (SuiteSparse_Partition_FOUND OR EIGENMETIS)
+  if ("${METIS_VERSION}" STREQUAL "")
+    # if none provided set a default version string
+    # this is the case for SuiteSparse-metis 7.5.1-1
+    set(METIS_VERSION "5.1.0")
+  endif()
   # Define version information for use in Solver::FullReport.
   add_definitions(-DCERES_METIS_VERSION="${METIS_VERSION}")
+  if (TARGET METIS::METIS) # no indent to keep changes small
   list(APPEND CERES_LIBRARY_PRIVATE_DEPENDENCIES METIS::METIS)
+  endif ()
 endif (SuiteSparse_Partition_FOUND OR EIGENMETIS)
 endif ()
 
